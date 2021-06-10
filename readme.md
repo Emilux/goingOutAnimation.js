@@ -2,7 +2,6 @@
 
 goingOutAnimation.js is a simple script that let you animate an element(s) when
 his no longer into/onto another element
-
 ##Install
 
 Download the goingOutAnimation.js or goingOutAnimation.min.js and load in your
