@@ -2,7 +2,8 @@
 
 goingOutAnimation.js is a simple script that let you animate an element(s) when
 his no longer into/onto another element
-##Install
+
+## Install
 
 Download the goingOutAnimation.js or goingOutAnimation.min.js and load in your
 html file.
@@ -20,8 +21,9 @@ or use the CDN.
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 ```
 
-##Get started
-###Initialize goingOutAnimation.js
+## Get started
+
+### Initialize goingOutAnimation.js
 
 To use goingOutAnimation.js first just call the function goingOutAnimation.
 
@@ -56,7 +58,7 @@ And here we go, we have our basic goingOutAnimation.js animation, now with our e
 we scroll down and the paragraph go out of the div#overlap he change to dark
 and when he go back in he turn white.
 
-##More options
+## More options
 
 
 
