@@ -5,14 +5,14 @@ his no longer into/onto another element
 
 ## Install
 
-Download the goingOutAnimation.js or goingOutAnimation.min.js and load in your
+Download the goingOutAnimation.js or goingOutAnimation.min.js and load it in your
 html file.
 
 ```html
 <script src="goingOutAnimation.min.js"></script>
 ```
 
-You will need to implement the [animate.js](https://animejs.com/) library if you
+You will need to implement the [animate.js](https://animejs.com/) library if you want
 goingOutAnimation.js to work.
 You can download it from the animate.js github [here](https://github.com/juliangarnier/anime/)
 or use the CDN.
