@@ -41,22 +41,47 @@ const goingOutAnimation = () => {
         let dataOverlap = a.dataset.overlap
         let dataTarget = a.dataset.target
         let dataOption = a.dataset.option
-        let dataInBackColor = a.dataset.inBackColor
-        let dataOutBackColor = a.dataset.OutBackColor
+        let dataInColor = a.dataset.inColor
+        let dataOutColor = a.dataset.OutColor
         let dataInOption = a.dataset.inOption
         let dataOutOption = a.dataset.outOption
 
         if (dataOverlap){
             if (dataTarget){
                 let elementOverlap = isOverlapping(a,document.querySelector(`#${dataOverlap}`));
+                let arrayClass = a.className.split(' ')
+                let findInContainer = arrayClass.findIndex((e)=> e === 'in-container')
+                let findOutContainer = arrayClass.findIndex((e)=> e === 'out-container')
+                let alreadyIn = true;
+                let alreadyOut = true;
+                console.log()
+                if (elementOverlap && findInContainer === -1){
+                    alreadyIn = false;
+                    a.classList.add("in-container");
+                    if (findOutContainer > -1){
+                        alreadyOut = true;
+                        a.classList.remove("out-container");
+                    }
+                }
+
+                if (!elementOverlap && findOutContainer === -1){
+                    alreadyOut = false;
+                    a.classList.add("out-container");
+                    if (findInContainer > -1){
+                        alreadyIn = true;
+                        a.classList.remove("in-container");
+                    }
+                }
+
+
                 let animeOutArray = {
                     targets:`.${dataTarget}`,
-                    color:`${dataOutBackColor ? dataOutBackColor : '#222222'}`,
+                    color:`${dataOutColor ? dataOutColor : '#222222'}`,
                     duration:2000,
                 }
                 let animeInArray = {
                     targets:`.${dataTarget}`,
-                    color:`${dataInBackColor ? dataInBackColor : '#ffffff'}`,
+                    color:`${dataInColor ? dataInColor : '#ffffff'}`,
                     duration:2000,
                 }
 
@@ -77,11 +102,15 @@ const goingOutAnimation = () => {
                 }
 
 
-                if (!elementOverlap)
+                if (!elementOverlap && !alreadyOut){
                     anime(animeOutArray)
+                }
 
-                else
+
+                if (elementOverlap && !alreadyIn){
                     anime(animeInArray)
+                }
+
 
 
 

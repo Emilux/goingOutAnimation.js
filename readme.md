@@ -56,8 +56,8 @@ For example :
 
 **data-target** is the class of the animated element(s)
 
-with just that basic configuration by default the color style of the animated element(s) will be white (_color :
-#ffffff_) when he go in the container and dark (_color : #222222_) when he go out the container.
+with just that basic configuration by default the color style of the animated element(s) will be white 
+(_color :#ffffff_) when he go in the container and dark (_color : #222222_) when he go out the container.
 
 And here we go, we have our basic goingOutAnimation.js animation, now with our example when we scroll down and the
 paragraph go out of the div#overlap he change to dark and when he go back in he turn white.
@@ -82,6 +82,12 @@ You can add more data attributes to your animated element :
             </li>
         </ul>
     </li>
+    <li>
+        data-in-color="hex_color_value"
+    </li>
+    <li>
+        data-out-color="hex_color_value"
+    </li>
 </ul>
 
 ### Data option attribute
@@ -93,6 +99,12 @@ and ``data-out-option``.
 ``data-in-option`` : let you specify the css property value when the element go in the container
 
 ``data-out-option`` : let you specify the css property value when the element go out the container
+
+### Data in and out color attribute
+
+The ``data-in-color`` and ``data-out-color``  attribute let you
+override the default color of the basics configuration if ``data-option`` is not set. 
+
 
 
 
