@@ -48,7 +48,7 @@ const goingOutAnimation = () => {
 
         if (dataOverlap){
             if (dataTarget){
-                let elementOverlap = isOverlapping(a,document.querySelector(`#${dataOverlap}`));
+                let elementOverlap = isOverlapping(a,document.querySelector(`.${dataOverlap}`));
                 let arrayClass = a.className.split(' ')
                 let findInContainer = arrayClass.findIndex((e)=> e === 'in-container')
                 let findOutContainer = arrayClass.findIndex((e)=> e === 'out-container')

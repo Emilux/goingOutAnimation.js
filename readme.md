@@ -48,11 +48,11 @@ For example :
 
 <div style="height: 200vh">
     <p style="position: fixed" class="target" data-overlap="overlap" data-target="target">My animated element</p>
-    <div id="overlap" style="height: 50%;">My container</div>
+    <div class="overlap" style="height: 50%;">My container</div>
 </div>
 ```
 
-**data-overlap** is always the ID of the container element
+**data-overlap** is always the class of the container element
 
 **data-target** is the class of the animated element(s)
 
