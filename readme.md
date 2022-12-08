@@ -4,7 +4,7 @@ goingOutAnimation.js is a simple script that let you animate an element(s) when 
 
 ## Install
 
-Download the goingOutAnimation.js or goingOutAnimation.min.js and load it in your html file.
+Download the goingOutAnimation.js or [goingOutAnimation.min.js](https://github.com/Emilux/goingOutAnimation.js/releases/tag/1.1.0) and load it in your html file.
 
 ```html
 
