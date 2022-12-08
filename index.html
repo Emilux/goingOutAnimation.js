@@ -4,24 +4,55 @@
     <meta charset="UTF-8">
     <title>goingOutAnimation.js - tester</title>
     <style>
+        .overlap {
+            background-color: red;
+            margin-top: 10rem;
+            margin-bottom: 5rem;
+        }
+
+        .overlap-2 {
+            background-color: blue;
+            margin-top: 5rem;
+            margin-bottom: 5rem;
+        }
         .target {
             transition: color 200ms ease-in-out;
         }
+        .target.in-container-overlap-2 {
+            color: white;
+        }
         .target.out-container {
-            color: transparent;
+            color: red;
         }
     </style>
 </head>
 <body>
 <div style="height: 200vh">
-    <p style="position: fixed" class="target" data-overlap="overlap" data-target="target">My animated element</p>
-    <div class="overlap" style="height: 50%;">My container</div>
+    <p style="position: fixed" class="target" data-overlap=".overlap,.overlap-2">My target element</p>
+    <p style="position: fixed;top: 1rem;" class="target" data-overlap=".overlap,.overlap-2">My target element</p>
+    <div class="overlap" style="height: 200px;">My container</div>
+    <div class="overlap-2" style="height: 200px;">My second container</div>
 </div>
 
 <script src="goingOutAnimation.js"></script>
 <script>
-    goingOutAnimation()
-    window.addEventListener('scroll',goingOutAnimation)
+    const goingOutParams = {
+        selector : '.target',
+        containers: [
+            {
+                id:'overlap',
+                selector:'.overlap'
+            },
+            {
+                id:'overlap-2',
+                selector:'.overlap-2'
+            }
+        ]
+    }
+
+    const goingOutAnimation = new GoingOutAnimation(goingOutParams)
+    goingOutAnimation.run()
+    window.addEventListener('scroll', () => goingOutAnimation.run() )
 </script>
 </body>
 </html>

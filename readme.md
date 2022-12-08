@@ -15,47 +15,73 @@ Download the goingOutAnimation.js or goingOutAnimation.min.js and load it in you
 
 ### Initialize goingOutAnimation.js
 
-To use goingOutAnimation.js first just call the function goingOutAnimation.
+To use goingOutAnimation.js first just call the class goingOutAnimation.
 
 For example whenever the user scroll on the window :
 
 ```html
 
 <script>
+    // Init the class
+    const goingOutAnimation = new GoingOutAnimation(goingOutParams)
+
     // Init the animation for the first time
-    goingOutAnimation()
+    goingOutAnimation.run()
     
     // On scroll
-    window.addEventListener('scroll', goingOutAnimation)
+    window.addEventListener('scroll', goingOutAnimation.run)
 </script>
 ```
 
 ### basic configuration
 
-The basic configuration is to add the data-overlap and data-target data attribut to the element that will be animated
-when he go in or out the chosen container.
-
-For example :
-
+#### HTML
 ```html
-
 <div style="height: 200vh">
-    <p style="position: fixed" class="target" data-overlap="overlap" data-target="target">My animated element</p>
-    <div class="overlap" style="height: 50%;">My container</div>
+    <p style="position: fixed" class="target">My target element</p>
+    <div class="overlap" style="height: 200px;">My container</div>
 </div>
 ```
+#### JS
+```html
+<script>
+    const goingOutParams = {
+        selector : '.target',
+        containers: [
+            {
+                selector:'.overlap'
+            },
+        ]
+    }
 
-**data-overlap** is always the class of the container element
+    const goingOutAnimation = new GoingOutAnimation(goingOutParams)
+    
+    goingOutAnimation.run()
+    window.addEventListener('scroll', () => goingOutAnimation.run() )
+</script>
+```
 
-**data-target** is the class of the animated element(s)
+In this example we have a container with the class `overlap` and the target with the class
+`target`. goingOutAnimation will check if the target is in or out of the container.
 
-And here we go, we have our basic goingOutAnimation.js animation, now with our example when we scroll down and the
-paragraph go out of the div#overlap he change to dark and when he go back in he turn transparent.
+For this example we pass a config object to our instance.
+Our config is stocked in the constant `goingOutParams`.
+
+### Config properties
+
+- **selector** _[required]_ in this property we specify the target element css selector
+- **containers** _[required]_ is an array of objects and is used to define the different containers property, if we have different type of container
+  - **selector** _[required]_ in this property we specify the container element css selector
+  - **id** in this property we specify an identifier for the container it is used to generate unique in-container class when this container is overlapped.
+
+As you can see you can add multiple container element, it's useful if you want to be more precise on the style of your target depending on which container he is overlapping
 
 ### Classes usage
 
+
 All goingOutAnimation.js will do is add ```in-container``` when the target is inside the container and ```out-container``` when his outside.
 
+With multiple containers specified in the config properties goingOutAnimation.js also add ```in-container-<container.id>``` when the target overlap different container.
 
 
 

@@ -1,67 +1,115 @@
-/**
- * Provides the overlapping status between two elements
- * based on the passed in Element objects
- *
- * @return {Boolean} overlap status or null if native object not received
- * @param e1
- * @param e2
- */
-const isOverlapping = (e1, e2) => {
-    if (e1.length && e1.length > 1) {
-        e1 = e1[0];
+class GoingOutAnimation {
+    constructor(config) {
+        this.selector = {elements:document.querySelectorAll(config.selector)};
+        this.containers = config.containers;
     }
-    if (e2.length && e2.length > 1){
-        e2 = e2[0];
+
+    /**
+     * Run the GoingOutAnimation system using config parameters
+     */
+    run() {
+        if (this.selector.elements) {
+            this.selector.elements.forEach( (target,i) => {
+                if (this.containers) {
+                    const elementOverlap = this.containers.filter((container) => {
+                        const {selector} = container
+                        const overlapElements = document.querySelectorAll(selector)
+                        if (overlapElements) {
+                            return [...overlapElements].find((element) => this.isOverlapping(target,element))
+                        }
+                        return false;
+                    })
+
+                    this.selector.attributes = {
+                        ...this.selector.attributes,
+                        [i] : {
+                        target:target,
+                        overlappingElements:elementOverlap,
+                        isInContainer:elementOverlap && elementOverlap.length > 0,
+                        isOutContainer:!elementOverlap || elementOverlap.length === 0,
+                        }
+                    }
+
+                    this.toggleElementClasses(this.selector.attributes[i])
+                }
+
+            })
+        }
     }
-    const rect1 = e1 instanceof Element ? e1.getBoundingClientRect() : false;
-    const rect2 = e2 instanceof Element ? e2.getBoundingClientRect() : false;
 
-    let overlap = false;
+    /**
+     * Add or remove target elements in-container/out-container classes
+     * @param element
+     */
+    toggleElementClasses(element) {
+        const dataTargetClassList  = element.target.classList
+        if (element.isInContainer){
+            this.inElementClasses(element)
+        } else  {
+            this.outElementClasses(element)
+        }
+    }
 
-    if (rect1 && rect2) {
-        overlap = !(
-            rect1.right < rect2.left ||
-            rect1.left > rect2.right ||
-            rect1.bottom < rect2.top ||
-            rect1.top > rect2.bottom
-        );
+    /**
+     * Add target elements in-container classes
+     * @param element
+     */
+    inElementClasses(element) {
+        const dataTargetClassList  = element.target.classList
+        dataTargetClassList.add("in-container");
+        dataTargetClassList.remove("out-container");
+        element.overlappingElements.forEach((element) => {
+            if (element.id) {
+                dataTargetClassList.add(`in-container-${element.id}`)
+            }
+        })
+    }
+
+    /**
+     * Add target elements out-container classes
+     * And remove all in-container classes
+     * @param element
+     */
+    outElementClasses(element) {
+        const dataTargetClassList  = element.target.classList
+        dataTargetClassList.add("out-container");
+        dataTargetClassList.remove("in-container");
+        element.target.className = element.target.className.replaceAll(/\bin-container-.*/g, '');
+    }
+
+
+
+    /**
+     * Provides the overlapping status between two elements
+     * based on the passed in Element objects
+     *
+     * @return {Boolean} overlap status or null if native object not received
+     * @param e1
+     * @param e2
+     */
+    isOverlapping (e1, e2){
+        if (e1.length && e1.length > 1) {
+            e1 = e1[0];
+        }
+        if (e2.length && e2.length > 1){
+            e2 = e2[0];
+        }
+        const rect1 = e1 instanceof Element ? e1.getBoundingClientRect() : false;
+        const rect2 = e2 instanceof Element ? e2.getBoundingClientRect() : false;
+
+        let overlap = false;
+
+        if (rect1 && rect2) {
+            overlap = !(
+                rect1.right < rect2.left ||
+                rect1.left > rect2.right ||
+                rect1.bottom < rect2.top ||
+                rect1.top > rect2.bottom
+            );
+            return overlap;
+        }
+
+        console.warn('Please provide valid HTMLElement object');
         return overlap;
     }
-
-    console.warn('Please provide valid HTMLElement object');
-    return overlap;
-}
-
-/**
- * Animation on element going out of another element
- */
-const goingOutAnimation = () => {
-    let element = document.querySelectorAll('*[data-overlap]')
-    element.forEach( (a,i) => {
-        let dataOverlap = a.dataset.overlap
-        let dataTarget = a.dataset.target
-
-        if (dataOverlap){
-            if (dataTarget){
-                let elementOverlap = isOverlapping(a,document.querySelector(`.${dataOverlap}`));
-                let arrayClass = a.className.split(' ')
-                let findInContainer = arrayClass.findIndex((e)=> e === 'in-container')
-                let findOutContainer = arrayClass.findIndex((e)=> e === 'out-container')
-                if (elementOverlap && findInContainer === -1){
-                    a.classList.add("in-container");
-                    if (findOutContainer > -1){
-                        a.classList.remove("out-container");
-                    }
-                }
-
-                if (!elementOverlap && findOutContainer === -1){
-                    a.classList.add("out-container");
-                    if (findInContainer > -1){
-                        a.classList.remove("in-container");
-                    }
-                }
-
-            } else console.error('no target element given')
-        } else console.error('no overlap element given')
-    })
 }
