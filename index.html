@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>goingOutAnimation.js - tester</title>
+    <style>
+        .target {
+            transition: color 200ms ease-in-out;
+        }
+        .target.out-container {
+            color: transparent;
+        }
+    </style>
 </head>
 <body>
 <div style="height: 200vh">
@@ -10,9 +18,9 @@
     <div class="overlap" style="height: 50%;">My container</div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="goingOutAnimation.min.js"></script>
+<script src="goingOutAnimation.js"></script>
 <script>
+    goingOutAnimation()
     window.addEventListener('scroll',goingOutAnimation)
 </script>
 </body>

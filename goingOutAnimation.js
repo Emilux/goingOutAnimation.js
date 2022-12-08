@@ -40,11 +40,6 @@ const goingOutAnimation = () => {
     element.forEach( (a,i) => {
         let dataOverlap = a.dataset.overlap
         let dataTarget = a.dataset.target
-        let dataOption = a.dataset.option
-        let dataInColor = a.dataset.inColor
-        let dataOutColor = a.dataset.OutColor
-        let dataInOption = a.dataset.inOption
-        let dataOutOption = a.dataset.outOption
 
         if (dataOverlap){
             if (dataTarget){
@@ -52,67 +47,19 @@ const goingOutAnimation = () => {
                 let arrayClass = a.className.split(' ')
                 let findInContainer = arrayClass.findIndex((e)=> e === 'in-container')
                 let findOutContainer = arrayClass.findIndex((e)=> e === 'out-container')
-                let alreadyIn = true;
-                let alreadyOut = true;
-                console.log()
                 if (elementOverlap && findInContainer === -1){
-                    alreadyIn = false;
                     a.classList.add("in-container");
                     if (findOutContainer > -1){
-                        alreadyOut = true;
                         a.classList.remove("out-container");
                     }
                 }
 
                 if (!elementOverlap && findOutContainer === -1){
-                    alreadyOut = false;
                     a.classList.add("out-container");
                     if (findInContainer > -1){
-                        alreadyIn = true;
                         a.classList.remove("in-container");
                     }
                 }
-
-
-                let animeOutArray = {
-                    targets:`.${dataTarget}`,
-                    color:`${dataOutColor ? dataOutColor : '#222222'}`,
-                    duration:2000,
-                }
-                let animeInArray = {
-                    targets:`.${dataTarget}`,
-                    color:`${dataInColor ? dataInColor : '#ffffff'}`,
-                    duration:2000,
-                }
-
-                if (dataOption){
-                    if (dataOutOption && dataInOption){
-                        animeOutArray = {
-                            targets:`.${dataTarget}`,
-                            [dataOption]:`${dataOutOption}`,
-                            duration:2000,
-                        }
-                        animeInArray = {
-                            targets:`.${dataTarget}`,
-                            [dataOption]:`${dataInOption}`,
-                            duration:2000,
-                        }
-                    } else console.error('no dataOutOption or/and dataInOption option given')
-
-                }
-
-
-                if (!elementOverlap && !alreadyOut){
-                    anime(animeOutArray)
-                }
-
-
-                if (elementOverlap && !alreadyIn){
-                    anime(animeInArray)
-                }
-
-
-
 
             } else console.error('no target element given')
         } else console.error('no overlap element given')

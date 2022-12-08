@@ -11,17 +11,6 @@ Download the goingOutAnimation.js or goingOutAnimation.min.js and load it in you
 <script src="goingOutAnimation.min.js"></script>
 ```
 
-You will need to implement the [animate.js](https://animejs.com/) library if you want goingOutAnimation.js to work. You
-can download it from the animate.js github [here](https://github.com/juliangarnier/anime/)
-or use the CDN.
-
-```html
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"
-        integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-```
-
 ## Get started
 
 ### Initialize goingOutAnimation.js
@@ -33,6 +22,10 @@ For example whenever the user scroll on the window :
 ```html
 
 <script>
+    // Init the animation for the first time
+    goingOutAnimation()
+    
+    // On scroll
     window.addEventListener('scroll', goingOutAnimation)
 </script>
 ```
@@ -56,54 +49,12 @@ For example :
 
 **data-target** is the class of the animated element(s)
 
-with just that basic configuration by default the color style of the animated element(s) will be white 
-(_color :#ffffff_) when he go in the container and dark (_color : #222222_) when he go out the container.
-
 And here we go, we have our basic goingOutAnimation.js animation, now with our example when we scroll down and the
-paragraph go out of the div#overlap he change to dark and when he go back in he turn white.
+paragraph go out of the div#overlap he change to dark and when he go back in he turn transparent.
 
-## More options
+### Classes usage
 
-With goingOutAnimation.js you have more possible configuration than the basics one.
-
-You can add more data attributes to your animated element :
-
-<ul>
-    <li>
-        data-option="css_property_name"
-        <ul>
-            <li>
-                **required** :
-                data-in-option="css_property_value"
-            </li>
-            <li>
-                **required** :
-                data-out-option="css_property_value"
-            </li>
-        </ul>
-    </li>
-    <li>
-        data-in-color="hex_color_value"
-    </li>
-    <li>
-        data-out-color="hex_color_value"
-    </li>
-</ul>
-
-### Data option attribute
-
-The ``data-option`` attribute let you specify the css property that
-you want to be animated. He need to be used with ``data-in-option``
-and ``data-out-option``.
-
-``data-in-option`` : let you specify the css property value when the element go in the container
-
-``data-out-option`` : let you specify the css property value when the element go out the container
-
-### Data in and out color attribute
-
-The ``data-in-color`` and ``data-out-color``  attribute let you
-override the default color of the basics configuration if ``data-option`` is not set. 
+All goingOutAnimation.js will do is add ```in-container``` when the target is inside the container and ```out-container``` when his outside.
 
 
 
