@@ -15,7 +15,14 @@ class GoingOutAnimation {
                         const {selector} = container
                         const overlapElements = document.querySelectorAll(selector)
                         if (overlapElements) {
-                            return [...overlapElements].find((element) => this.isOverlapping(target,element))
+                            return [...overlapElements].find((element) => {
+                                const isOverlapping = this.isOverlapping(target,element)
+                                // Remove class if no more overlapping
+                                if (!isOverlapping)
+                                    target.classList.remove(`in-container-${container.id}`)
+
+                                return isOverlapping
+                            })
                         }
                         return false;
                     })
@@ -42,7 +49,6 @@ class GoingOutAnimation {
      * @param element
      */
     toggleElementClasses(element) {
-        const dataTargetClassList  = element.target.classList
         if (element.isInContainer){
             this.inElementClasses(element)
         } else  {
@@ -74,7 +80,6 @@ class GoingOutAnimation {
         const dataTargetClassList  = element.target.classList
         dataTargetClassList.add("out-container");
         dataTargetClassList.remove("in-container");
-        element.target.className = element.target.className.replaceAll(/\bin-container-.*/g, '');
     }
 
 
@@ -88,6 +93,7 @@ class GoingOutAnimation {
      * @param e2
      */
     isOverlapping (e1, e2){
+
         if (e1.length && e1.length > 1) {
             e1 = e1[0];
         }
@@ -106,6 +112,8 @@ class GoingOutAnimation {
                 rect1.bottom < rect2.top ||
                 rect1.top > rect2.bottom
             );
+            if (overlap)
+                console.log(this.selector.attributes)
             return overlap;
         }
 

@@ -15,11 +15,20 @@
             margin-top: 5rem;
             margin-bottom: 5rem;
         }
+
+        .overlap-child {
+            background-color: green;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
         .target {
             transition: color 200ms ease-in-out;
         }
         .target.in-container-overlap-2 {
             color: white;
+        }
+        .target.in-container-overlap-child {
+            color: blue;
         }
         .target.out-container {
             color: red;
@@ -31,7 +40,12 @@
     <p style="position: fixed" class="target" data-overlap=".overlap,.overlap-2">My target element</p>
     <p style="position: fixed;top: 1rem;" class="target" data-overlap=".overlap,.overlap-2">My target element</p>
     <div class="overlap" style="height: 200px;">My container</div>
-    <div class="overlap-2" style="height: 200px;">My second container</div>
+    <div class="overlap-2" style="height: 200px;">
+        My second container
+        <div class="overlap-child" style="height: 50px;">
+            My second container child
+        </div>
+    </div>
 </div>
 
 <script src="goingOutAnimation.js"></script>
@@ -46,6 +60,10 @@
             {
                 id:'overlap-2',
                 selector:'.overlap-2'
+            },
+            {
+                id:'overlap-child',
+                selector:'.overlap-child'
             }
         ]
     }
